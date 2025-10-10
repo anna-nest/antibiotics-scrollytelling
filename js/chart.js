@@ -142,7 +142,7 @@ const margin = {
   top: containerHeight * 0.03,     // 3% of viewport height
   right: containerWidth * 0.1,    // 5% of width
   bottom: containerHeight * 0.07,  // 7% of viewport height
-  left: isMobile ? containerWidth * 0.4 : containerWidth * 0.2  // 20% of width on desktop and 30% on mobile
+  left: containerWidth * 0.4 // 20% of width on desktop and 30% on mobile
 };
 
  
