@@ -154,6 +154,7 @@ canvas {
   margin-top: 0.1rem;
   padding-top: 0.1rem;
   position: relative;
+  overflow-x: visible; 
   z-index: 3; 
     }
 
