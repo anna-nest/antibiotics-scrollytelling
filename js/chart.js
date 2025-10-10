@@ -24,9 +24,9 @@ const containerHeight = window.innerHeight; // 👈 define this first
 
 const margin = {
   top: containerHeight * 0.03,     // 3% of viewport height
-  right: containerWidth * 0.1,    // 5% of width
+  right: isMobile ? containerWidth * 0.05 : containerWidth * 0.1, // smaller right margin on mobile
   bottom: containerHeight * 0.07,  // 7% of viewport height
-  left:  containerWidth * 0.4 
+  left: isMobile ? containerWidth * 0.3 : containerWidth * 0.2  // 20% of width on desktop and 30% on mobile
 };
 
 const widthFactor = isMobile ? 0.95 : 0.6;
@@ -124,11 +124,11 @@ function drawDeathChart2019() {
     { cause: "Heart disease", value: 33.1, infectious: false },
     { cause: "Cancer", value: 16.8, infectious: false },
     { cause: "Chronic lung diseases", value: 7.5, infectious: false },
-    { cause: "Chest infections and tuberculosis", value: 6.6, infectious: true },
-    { cause: "Diabetes and kidney diseases", value: 5.4, infectious: false },
+    { cause: "Chest infections", value: 6.6, infectious: true },
+    { cause: "Diabetes & kidney diseases", value: 5.4, infectious: false },
     { cause: "Digestive diseases", value: 4.4, infectious: false },
     { cause: "Neurological disorders", value: 4.3, infectious: false },
-    { cause: "Pregnancy and newborn disorders", value: 3.8, infectious: false },
+    { cause: "Pregnancy & newborn", value: 3.8, infectious: false },
     { cause: "Accidential injuries", value: 3.2, infectious: false },
     { cause: "Gut infections", value: 2.5, infectious: true }
   ];
@@ -136,11 +136,11 @@ function drawDeathChart2019() {
   const container = d3.select("#deathGraph2019");
   const containerWidth = container.node().getBoundingClientRect().width;
 const containerHeight = window.innerHeight; // 👈 define this first
- const isMobile = window.innerWidth < 900;
+ const isMobile = window.innerWidth < 768;
 
 const margin = {
   top: containerHeight * 0.03,     // 3% of viewport height
-  right: containerWidth * 0.1,    // 5% of width
+  right: isMobile ? containerWidth * 0.05 : containerWidth * 0.1, // smaller right margin on mobile
   bottom: containerHeight * 0.07,  // 7% of viewport height
   left: isMobile ? containerWidth * 0.3 : containerWidth * 0.2  // 20% of width on desktop and 30% on mobile
 };
