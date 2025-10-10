@@ -23,9 +23,9 @@ const containerHeight = window.innerHeight; // 👈 define this first
 
 const margin = {
   top: containerHeight * 0.03,     // 3% of viewport height
-  right: containerWidth * 0.05,    // 5% of width
+  right: containerWidth * 0.1,    // 5% of width
   bottom: containerHeight * 0.07,  // 7% of viewport height
-  left: containerWidth * 0.35      // 25% of width
+  left: containerWidth * 0.2      // 10% of width
 };
  const isMobile = window.innerWidth < 768;
 const widthFactor = isMobile ? 0.95 : 0.6;
@@ -136,11 +136,11 @@ function drawDeathChart2019() {
   const containerWidth = container.node().getBoundingClientRect().width;
 const containerHeight = window.innerHeight; // 👈 define this first
 
-  const margin = {
+const margin = {
   top: containerHeight * 0.03,     // 3% of viewport height
-  right: containerWidth * 0.08,    // 5% of width
+  right: containerWidth * 0.1,    // 5% of width
   bottom: containerHeight * 0.07,  // 7% of viewport height
-  left: containerWidth * 0.35      // 25% of width
+  left: containerWidth * 0.2      // 10% of width
 };
   const isMobile = window.innerWidth < 768;
 const widthFactor = isMobile ? 0.95 : 0.6;
