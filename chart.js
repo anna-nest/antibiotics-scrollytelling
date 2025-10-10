@@ -24,7 +24,7 @@ const containerHeight = window.innerHeight; // 👈 define this first
 
 const margin = {
   top: containerHeight * 0.03,     // 3% of viewport height
-  right: containerWidth * 0.05,    // 5% of width
+  right: isMobile ? 10 : containerWidth * 0.1, // smaller right margin on mobile
   bottom: containerHeight * 0.07,  // 7% of viewport height
   left: isMobile ? containerWidth * 0.4 : containerWidth * 0.2  // 20% of width on desktop and 30% on mobile
 };
@@ -136,13 +136,13 @@ function drawDeathChart2019() {
   const container = d3.select("#deathGraph2019");
   const containerWidth = container.node().getBoundingClientRect().width;
 const containerHeight = window.innerHeight; // 👈 define this first
- const isMobile = window.innerWidth < 900;
+ const isMobile = window.innerWidth < 768;
 
 const margin = {
   top: containerHeight * 0.03,     // 3% of viewport height
-  right: containerWidth * 0.1,    // 5% of width
+  right: isMobile ? 10 : containerWidth * 0.1, // smaller right margin on mobile
   bottom: containerHeight * 0.07,  // 7% of viewport height
-  left: isMobile ? containerWidth * 0.3 : containerWidth * 0.2  // 20% of width on desktop and 30% on mobile
+  left: isMobile ? containerWidth * 0.4 : containerWidth * 0.2  // 20% of width on desktop and 30% on mobile
 };
 
  
