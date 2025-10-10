@@ -26,7 +26,7 @@ const margin = {
   top: containerHeight * 0.03,     // 3% of viewport height
   right: isMobile ? containerWidth * 0.05 : containerWidth * 0.1, // smaller right margin on mobile
   bottom: containerHeight * 0.07,  // 7% of viewport height
-  left: isMobile ? containerWidth * 0.3 : containerWidth * 0.2  // 20% of width on desktop and 30% on mobile
+  left: isMobile ? containerWidth * 0.35 : containerWidth * 0.2  // 20% of width on desktop and 35% on mobile
 };
 
 const widthFactor = isMobile ? 0.95 : 0.6;
@@ -142,7 +142,7 @@ const margin = {
   top: containerHeight * 0.03,     // 3% of viewport height
   right: isMobile ? containerWidth * 0.05 : containerWidth * 0.1, // smaller right margin on mobile
   bottom: containerHeight * 0.07,  // 7% of viewport height
-  left: isMobile ? containerWidth * 0.3 : containerWidth * 0.2  // 20% of width on desktop and 30% on mobile
+  left: isMobile ? containerWidth * 0.35 : containerWidth * 0.2  // 20% of width on desktop and 35% on mobile
 };
 
  
