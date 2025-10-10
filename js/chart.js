@@ -125,7 +125,7 @@ function drawDeathChart2019() {
     { cause: "Cancer", value: 16.8, infectious: false },
     { cause: "Chronic lung diseases", value: 7.5, infectious: false },
     { cause: "Chest infections", value: 6.6, infectious: true },
-    { cause: "Diabetes & kidney diseases", value: 5.4, infectious: false },
+    { cause: "Diabetes & kidney issues", value: 5.4, infectious: false },
     { cause: "Digestive diseases", value: 4.4, infectious: false },
     { cause: "Neurological disorders", value: 4.3, infectious: false },
     { cause: "Pregnancy & newborn", value: 3.8, infectious: false },
@@ -136,13 +136,13 @@ function drawDeathChart2019() {
   const container = d3.select("#deathGraph2019");
   const containerWidth = container.node().getBoundingClientRect().width;
 const containerHeight = window.innerHeight; // 👈 define this first
- const isMobile = window.innerWidth < 768;
+ const isMobile = window.innerWidth < 900;
 
 const margin = {
   top: containerHeight * 0.03,     // 3% of viewport height
-  right: containerWidth * 0.1, 
+  right: containerWidth * 0.12, 
   bottom: containerHeight * 0.07,  // 7% of viewport height
-  left: isMobile ? containerWidth * 0.4 : containerWidth * 0.2  // 20% of width on desktop and 35% on mobile
+  left: isMobile ? containerWidth * 0.35 : containerWidth * 0.2  // 20% of width on desktop and 35% on mobile
 };
 
  
@@ -217,7 +217,7 @@ const width = containerWidth * widthFactor - margin.left - margin.right; // same
   svg.append("text")
     .attr("x", 0)
     .attr("y", height + margin.bottom-4)
-    .text("Share of deaths by disease, worldwide, 2019")
+    .text("Share of deaths by disease, global, 2019")
     .style("fill", "white")
   .style("font-size", "clamp(10px, 0.8vw, 0.75rem)")
   .style("font-family", "Merriweather, serif")   // <-- custom font
