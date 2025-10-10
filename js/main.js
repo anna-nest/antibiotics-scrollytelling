@@ -44,8 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Step 4: death graph
         if (response.index === 4) {
-          // gsap.to(yearEl, {opacity: 1, duration: 0.1});
-          // yearEl.textContent = "1900";
+
           if (overlay) gsap.to(overlay, { opacity: 0.5, duration: 1 });
           if (!chartVisible && typeof window.drawDeathChart === "function") {
             window.drawDeathChart();
@@ -235,7 +234,7 @@ if (response.index === 13 && response.direction === "down") {
   if (overlay) {
     overlay.style.display = "";       // make sure it’s visible
     gsap.killTweensOf(overlay);       // cancel any previous animations
-    gsap.to(overlay, { opacity: 0.3, duration: 1 });  // adjust alpha as needed
+    gsap.to(overlay, { opacity: 0.5, duration: 1 });  // adjust alpha as needed
   }
 
   }
