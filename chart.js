@@ -142,7 +142,7 @@ const margin = {
   top: containerHeight * 0.03,     // 3% of viewport height
   right: containerWidth * 0.12, 
   bottom: containerHeight * 0.07,  // 7% of viewport height
-  left: isMobile ? containerWidth * 0.4 : containerWidth * 0.2  // 20% of width on desktop and 35% on mobile
+  left: isMobile ? containerWidth * 0.35 : containerWidth * 0.2  // 20% of width on desktop and 35% on mobile
 };
 
  
@@ -217,7 +217,7 @@ const width = containerWidth * widthFactor - margin.left - margin.right; // same
   svg.append("text")
     .attr("x", 0)
     .attr("y", height + margin.bottom-4)
-    .text("Share of deaths by disease, worldwide, 2019")
+    .text("Share of deaths by disease, global, 2019")
     .style("fill", "white")
   .style("font-size", "clamp(10px, 0.8vw, 0.75rem)")
   .style("font-family", "Merriweather, serif")   // <-- custom font
