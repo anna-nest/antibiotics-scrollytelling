@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Antibiotics Scrollytelling</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+ 
+  <div id="swarm-container"></div>
+  <div id="dim-overlay"></div>
+
+  <!-- Step 0 -->
+  <section class="scroll-section">
+    <div class="scroll-indicator">⬇ Scroll down</div>
+    <p>bacteria is a dominant form of life on Earth <br>by mass and by number</p>
+  </section>
+  
+
+  <!-- Step 1 -->
+  <section class="scroll-section">
+    <div class="split-text">
+      <div>
+        <p>there is more<br><i>bacteria </i> <br> in a teaspoon of soil</p>
+        <p class="large-number">~1 trillion</p>
+      </div>
+      <div>
+        <p>than <br><i>humans</i><br> who have ever lived</p>
+        <p class="large-number">~ 0.1 trillion</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 2 -->
+  <section class="scroll-section">
+    <p>only a tiny fraction of them are harmful</p>
+    <p>less than <span class="infectious">2%</span> are causing disease in <br>humans, animals or plants</p>
+  </section>
+
+  <!-- Step 3 -->
+  <section class="scroll-section">
+    <p>but these once posed major problems to humankind </p>
+  </section>
+
+  <!-- Step 4 -->
+  <section class="scroll-section" id="disease-graph">
+     <p class="disease-paragraph">
+      in 1900, <span class="infectious">infectious diseases</span> were <br>the leading cause of death
+    </p>
+    <svg id="deathGraph" width="800" height="300"></svg>
+    </section>
+
+  <!-- Step 5 -->
+  <section class="scroll-section" data-action="count1928">
+    <p>but things were about to change…</p>
+  </section>
+
+  <!-- Step 6 -->
+  <section class="scroll-section" data-action="fleming">
+    <p>Alexander Fleming stumbled upon penicillin — <br>the first true antibiotic</p>
+  </section>
+
+  <!-- Step 7 -->
+  <section class="scroll-section" data-action="count1946">
+    <p>it took some time before it was widely used</p>
+  </section>
+
+  <!-- Step 8 (Wiper Scene) -->
+  <section class="scroll-section" data-action="wiper">
+    <p>but it opened the door to what is now called <br>the golden era of antibiotics</p>
+  </section>
+
+  <!-- YEAR COUNTER -->
+  <div id="year-counter">1900</div>
+
+  <!-- WIPER LAYERS (hidden until triggered) -->
+  <div id="gold-bg"></div>
+  <svg id="svg-container"></svg>
+  <svg id="text-layer"></svg>
+  <svg id="timeline"></svg>
+  <div id="final-message">
+    More than 20 new classes of antibiotics were introduced.
+  </div>
+
+    <!-- Step 9 (after Wiper Scene) -->
+<section class="scroll-section" id="step9">
+  <p>It marked a turning point in human health</p>
+</section>
+
+
+ <!-- Step 10  -->
+<section class="scroll-section" >
+  <p class="disease-paragraph"><span class="infectious">Infections</span>, once our greatest killers, lost their grip — <br>their numbers collapsed</p>
+  <svg id="deathGraph2019" width="800" height="300"></svg>
+</section>
+
+
+   <!-- Step 11 -->
+  <section class="scroll-section">
+    <p>But the story is not over</p>
+  </section>
+
+   <!-- Step 12 -->
+  <section class="scroll-section">
+    <p>Overuse leaves many antibiotics failing, <br> as drug-resistant bacteria emerge and reclaim the stage. </p>
+  </section>
+
+<!-- Step 13 -->
+ <section class="scroll-section step-13">
+  <p> In 2050, <span class="infectious">resistant infections</span> may directly cause 1.91 million and contribute to 8.22 million deaths.</p>
+  <p>This will likely be more than 8% of all 2050 deaths worldwide.</p>
+   <p>Roughly one in every 12.</p>
+   <p>Or possibly more...</p>
+</section>
+
+<!-- Step 14 -->
+ <section class="scroll-section">
+<p>Will we act in time to stop history repeating?</p>
+</section>
+
+<!-- Step 15 -->
+ <section class="scroll-section">
+
+  <h1> 
+Data Sources<br>
+<br>
+<ul class="sources">
+<li><b>Historical mortality data</b> — National Center for Health Statistics, CDC Archive (“Leading Causes of Death, 1900–1932 and U.S. data thereafter”)<br></li>
+<li><b>Recent global mortality data</b> — Institute for Health Metrics and Evaluation (IHME), Global Burden of Disease Study 2024<br></li>
+<li><b>U.S. antibiotic / drug approvals</b> — compiled by Our World in Data (from FDA / CDER records)<br></li>
+<li><b>Antimicrobial resistance forecasts</b> — The Lancet (2024), Global burden of bacterial antimicrobial resistance 1990–2021, with forecasts to 2050<br></li>
+<li><b>Population & death projections </b>— UN, World Population Prospects 2024<br></li>
+</ul>
+</h1>
+</section>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollama/3.2.0/scrollama.min.js"></script>
+  <script src="js/germs.js"></script>
+  <script src="js/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/wiper.js"></script> <!-- separate file -->
+  
+</body>
+</html>

@@ -1,0 +1,290 @@
+html {
+  font-size: clamp(1rem, 2vw, 3rem); /* responsive base font */ /* 12–30px */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Merriweather Sans', sans-serif;
+    font-size: 1rem;  /* scales with viewport */
+      font-weight: 400; /* regular */
+   line-height: 1.4;     /* readable spacing */
+  background: rgb(20, 20, 10);
+  color: rgb(255, 254, 252);
+  overflow-x: hidden;
+}
+
+h1 {
+  font-family: 'Merriweather Sans', sans-serif;
+  font-size: clamp(10px, 1.2vw, 24px); /* 12px minimum, scales with viewport, max 24px */
+  font-weight: 300; /* regular */
+  text-align:left;
+  line-height: 2; 
+  margin-left: 2rem;
+  @media (max-width: 768px) {
+  h1 {
+    margin-left: 1rem;   } }
+}
+
+.sources {
+  list-style-position: outside; /* keeps bullets visible but aligned nicely */
+  padding-left: 0;              /* removes browser default indent */
+  margin-left: 0;               /* removes any left margin */
+}
+.sources li {
+  margin-bottom: 0.4em;         /* optional: add a little vertical spacing */
+}
+.sources li::marker {
+   margin-right: 0.6em; /* increases gap between bullet and text */
+}
+
+
+#swarm-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+#dim-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(20, 20, 10);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1; /* above swarm, below text/chart */
+}
+
+canvas {
+  display: block;
+}
+
+.scroll-section {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 1rem 1rem;
+  position: relative;
+  z-index: 2; /* make sure text is above the swarm */
+}
+
+.scroll-section p {
+  transform: translateY(calc(-50% + 2rem)); /* starting offset */
+    opacity: 0;
+  transition: opacity 0.6s ease, transform 0.8s ease;
+  margin: 1rem 0;
+  max-width: 1200px;
+   
+}
+
+.scroll-section p.visible {
+  opacity: 1;
+  transform: translateY(-50%);
+}
+
+
+/* Step 13 only: stagger paragraph appearance */
+.step-13 p:nth-child(1) { transition-delay: 0s; }
+.step-13 p:nth-child(2) { transition-delay: 2.4s; }
+.step-13 p:nth-child(3) { transition-delay: 3s; }
+.step-13 p:nth-child(4) { transition-delay: 3.6s; }
+
+
+.scroll-indicator {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #cfcfcf;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  z-index: 3;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 420ms ease, transform 420ms ease;
+  /* subtle bounce when visible */
+  animation: scroll-bounce 1.6s infinite;
+}
+
+.scroll-indicator.hidden {
+  opacity: 0;
+  transform: translate(-50%, 12px);
+  animation: none;
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translate(-50%, 0); }
+  50%     { transform: translate(-50%, -8px); }
+}
+
+.large-number {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+.infectious {
+  color: rgb(30, 230, 120);
+  font-weight: bold; /* to highlight more */
+}
+
+.split-text {
+  display: flex;
+  justify-content: center; /* centers both columns */
+  gap: 1.5rem;               /* adjust space between them */
+  width: 100%;
+  max-width: 70vw;
+}
+.split-text > div {
+  flex: 1;
+  text-align: center;
+}
+
+#disease-graph, #deathGraph2019 {
+  width: 90%;
+  max-width: 90vw;
+  height: auto;   /* let SVG decide height */
+  margin-top: 0.1rem;
+  padding-top: 0.1rem;
+  position: relative;
+  z-index: 3; 
+    }
+
+
+#disease-graph svg,
+#deathGraph2019 {
+  width: 100%;
+  height: 65vh;
+  display: block;
+    margin-top: 0; /* to reduce the gap between paragraph and chart  */
+}
+
+/* tighter spacing for sections that contain charts */
+#disease-graph p.disease-paragraph,
+#deathGraph2019 p.disease-paragraph {
+  margin: 0;  /* reduce gap under paragraph */
+}
+
+
+#year-counter {
+  position: fixed;        /* fixed to viewport so it’s independent of steps */
+  top: 10vh;              /* upper part of the screen */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 4rem;
+  font-weight: 700;
+  text-align: center;
+  z-index: 5;
+  opacity: 0;             /* initially hidden */
+}
+
+
+/* --- Wiper Layers --- */
+#gold-bg {
+  position: fixed;
+  top:0; left:0;
+  width:100vw; height:100vh;
+  background: rgba(220,180,90,1);
+  opacity:0;
+  z-index:7;
+}
+
+#svg-container {
+  position: fixed;
+  top:0; left:0;
+  width:100vw; height:100vh;
+  z-index:8;
+}
+
+#text-layer {
+  position: fixed;
+  top:0; left:0;
+  width:100vw; height:100vh;
+  z-index:9;
+  pointer-events:none;
+}
+
+#timeline {
+  width:100%;
+   z-index:10;
+  pointer-events:none;
+}
+
+#timeline line { stroke: rgb(255, 254, 252); stroke-width: 0.05rem; }
+#timeline text { fill: rgb(255, 254, 252); font-size: clamp(0.5rem, 0.8vw, 0.75rem); }
+
+#timeline text:first-child { display: none; }
+
+text.drug-label { 
+  fill:rgb(20, 20, 10); 
+  font-family: "Merriweather Sans", sans-serif;
+  font-weight:400; 
+  font-style: normal;
+  text-anchor:middle; 
+  dominant-baseline:middle; 
+  opacity:0;
+}
+text.drug-label[data-top="true"] {
+  font-weight: 700;
+}
+
+
+#final-message {
+  position: fixed;
+  top: 10%;
+  left:10%;
+  width: 50%;
+  text-align:left;
+  font-size: rem;
+  font-weight: 500;
+  color: white; 
+  opacity: 0;
+  z-index: 11;
+}
+
+
+.step {
+  height: 100vh; /* each step is full screen */
+}
+#step9 {
+  height: 10vh; /* or 50vh instead of 100vh */
+}
+
+.black-bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background:rgb(20, 20, 10);
+  z-index: 5;
+}
+
+#pill-wave {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  z-index: 13; /* above gold (1) and text layers (11) */
+}
+
+
+#pill-wave .pill {
+  width: 150px;
+  height: 50px;
+  border-radius: 25px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+
+
