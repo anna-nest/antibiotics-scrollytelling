@@ -115,33 +115,6 @@ document.addEventListener('DOMContentLoaded', function() {
   if (blackBg) blackBg.style.display = "none"; // make sure it isn't covering the canvas
         }
 
-        // // 🔥 Step 8: trigger wiper (only when scrolling down and not already running)
-        // if (response.index === 8 && response.direction === "down") {
-        //   // Lock scrolling to keep viewer on the animation screen
-
-        //   document.body.style.overflow = "hidden";
-
-        //   gsap.to(yearEl, { opacity: 0, duration: 0.3 });
-        //   if (overlay) gsap.to(overlay, { opacity: 0, duration: 0.5 });
-        //   if (typeof window.resetDeathChart === "function" && chartVisible) {
-        //     window.resetDeathChart();
-        //     chartVisible = false;
-        //   }
-
-        //   // start wiper only if it's not already running
-        //   if (typeof window.startWiperAnimation === "function" && !window.wiperRunning) {
-        //     window.startWiperAnimation(() => {
-        //       // callback after animation finishes:
-        //       // unlock scrolling so user can scroll to Step 9 (static final screen)
-        //       // Later unlock:
-
-        //       document.body.style.overflow = "auto";
-        //     });
-        //   }
-      
-        // }
-
-
   // Step 8 fallback - trigger if onStepProgress missed it
   if (response.index === 8 && response.direction === "down" && !wiperTriggered) {
     wiperTriggered = true;
@@ -283,7 +256,6 @@ if (response.index === 13 && response.direction === "down") {
     gsap.killTweensOf(overlay);       // cancel any previous animations
     gsap.to(overlay, { opacity: 0.5, duration: 1 });  // adjust alpha as needed
   }
-
   }
 
 // Step 14 — 2050 blinking
@@ -315,7 +287,6 @@ if (response.index === 15 && response.direction === "down") {
   }
 }
     }) // <-- closes onStepEnter properly
-
 
        
 .onStepExit((response) => {
@@ -360,28 +331,11 @@ if (response.index === 15 && response.direction === "down") {
     window.createInitialSwarm();}
   }
 
-  // Step 8 → reset wiper
-  // if (response.index === 8 && response.direction === "up") {
-  //   if (typeof window.resetWiper === "function") {
-  //     window.resetWiper();
-  //     window.wiperRunning = false; // ✅ Add this line
-  //   }
-  // }
 
         if (response.index === 8 && response.direction === "up") {
           wiperTriggered = false;
           if (typeof window.resetWiper === "function") window.resetWiper();
         }
-
-        // if (
-        //   response.index === 8 &&
-        //   response.direction === "down" &&
-        //   !wiperTriggered &&
-        //   !window.wiperRunning
-        // ) {
-        //   wiperTriggered = true;
-        //   startWiperAnimationSafely();
-        // }
 
   // Step 10 → reset to 1946
   if (response.index === 10 && response.direction === "up") {
