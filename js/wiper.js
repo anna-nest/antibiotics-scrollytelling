@@ -485,7 +485,11 @@ if (window.innerWidth < 800) {
       gsap.to(finalMessage, {
         opacity: 1,
         duration: 0.9,
-        ease: "power1.out"
+        ease: "power1.out",
+              onComplete: () => {
+        // ✅ UNLOCK SCROLLING HERE - earlier than before
+        document.body.style.overflow = "auto";
+      }
       });
     }
   }, earlyMsgDelayMs);
@@ -542,8 +546,7 @@ if (capsuleStack) capsuleStack.remove();
 
   window.wiperRunning = false;
   window.wiperDone = false;
-  // ensure scrolling unlocked (your main.js controls locking; keep this here if needed)
-  document.body.style.overflow = "auto";
+
 };
 
 // cleanupWiper: called when moving into Step 9 (we want to wipe everything and keep a static gold under text)
