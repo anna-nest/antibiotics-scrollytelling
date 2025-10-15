@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
        .onStepProgress((response) => {
         if (
           response.index === 8 &&
-          response.progress >= 0.4 &&
+          response.progress >= 0.3 &&
           !wiperTriggered &&
           !window.wiperRunning
         ) {
@@ -137,6 +137,12 @@ document.addEventListener('DOMContentLoaded', function() {
       
         // }
 
+
+  // Step 8 fallback - trigger if onStepProgress missed it
+  if (response.index === 8 && response.direction === "down" && !wiperTriggered) {
+    wiperTriggered = true;
+    startWiperAnimationSafely();
+  }
 
 function animateYearCounter(from, to, options = {}) {
   const el = document.getElementById("year-counter");
@@ -363,15 +369,15 @@ if (response.index === 15 && response.direction === "down") {
           if (typeof window.resetWiper === "function") window.resetWiper();
         }
 
-        if (
-          response.index === 8 &&
-          response.direction === "down" &&
-          !wiperTriggered &&
-          !window.wiperRunning
-        ) {
-          wiperTriggered = true;
-          startWiperAnimationSafely();
-        }
+        // if (
+        //   response.index === 8 &&
+        //   response.direction === "down" &&
+        //   !wiperTriggered &&
+        //   !window.wiperRunning
+        // ) {
+        //   wiperTriggered = true;
+        //   startWiperAnimationSafely();
+        // }
 
   // Step 10 → reset to 1946
   if (response.index === 10 && response.direction === "up") {
