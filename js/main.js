@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const scroller = scrollama();
   let chartVisible = false;
+  let wiperTriggered = false;
   const overlay = document.getElementById("dim-overlay");
 
   function animateYear(from, to, duration = 2) {
@@ -28,7 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
     scroller
       .setup({
         step: ".scroll-section",
-        offset: 0.25
+        offset: 0.25,
+        progress: true, 
       })
       .onStepEnter((response) => {
         window.updateGermsStep(response.index);
@@ -73,33 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const blackBg = document.querySelector(".black-bg");
   if (blackBg) blackBg.style.display = "none"; // make sure it isn't covering the canvas
         }
-
-        // 🔥 Step 8: trigger wiper (only when scrolling down and not already running)
-        if (response.index === 8 && response.direction === "down") {
-          // Lock scrolling to keep viewer on the animation screen
-
-          document.body.style.overflow = "hidden";
-
-          gsap.to(yearEl, { opacity: 0, duration: 0.3 });
-          if (overlay) gsap.to(overlay, { opacity: 0, duration: 0.5 });
-          if (typeof window.resetDeathChart === "function" && chartVisible) {
-            window.resetDeathChart();
-            chartVisible = false;
-          }
-
-          // start wiper only if it's not already running
-          if (typeof window.startWiperAnimation === "function" && !window.wiperRunning) {
-            window.startWiperAnimation(() => {
-              // callback after animation finishes:
-              // unlock scrolling so user can scroll to Step 9 (static final screen)
-              // Later unlock:
-
-              document.body.style.overflow = "auto";
-            });
-          }
-      
-        }
-
 
 function animateYearCounter(from, to, options = {}) {
   const el = document.getElementById("year-counter");
@@ -269,7 +244,35 @@ if (response.index === 15 && response.direction === "down") {
 }
     }) // <-- closes onStepEnter properly
 
+    .onStepProgress((response) => {
+      // only care about step 8, only when scrolling down, and only once per entry
+      if (
+        response.index === 8 &&
+        (response.direction === "down" || response.direction === undefined) && // direction sometimes undefined in some builds
+        response.progress >= 0.4 &&   // >= is safer than >
+        !wiperTriggered &&            // our local one-time flag
+        !window.wiperRunning          // animation not already running
+      ) {
+        wiperTriggered = true; // prevent retriggers while in this step
 
+        const yearEl = document.getElementById("year-counter");
+
+        document.body.style.overflow = "hidden";
+        gsap.to(yearEl, { opacity: 0, duration: 0.3 });
+        if (overlay) gsap.to(overlay, { opacity: 0, duration: 0.5 });
+
+        if (typeof window.resetDeathChart === "function" && chartVisible) {
+          window.resetDeathChart();
+          chartVisible = false;
+        }
+
+        if (typeof window.startWiperAnimation === "function") {
+          window.startWiperAnimation(() => {
+            document.body.style.overflow = "auto";
+          });
+        }
+      }
+    })
        
 .onStepExit((response) => {
   const yearEl = document.getElementById("year-counter");
