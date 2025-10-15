@@ -64,7 +64,7 @@ canvas {
 }
 
 .scroll-section {
-  min-height: 150dvh;
+  min-height: 115dvh;
   display: flex;
   align-items: center;
   justify-content: center;
