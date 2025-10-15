@@ -369,15 +369,15 @@ if (response.index === 15 && response.direction === "down") {
           if (typeof window.resetWiper === "function") window.resetWiper();
         }
 
-        // if (
-        //   response.index === 8 &&
-        //   response.direction === "down" &&
-        //   !wiperTriggered &&
-        //   !window.wiperRunning
-        // ) {
-        //   wiperTriggered = true;
-        //   startWiperAnimationSafely();
-        // }
+        if (
+          response.index === 8 &&
+          response.direction === "down" &&
+          !wiperTriggered &&
+          !window.wiperRunning
+        ) {
+          wiperTriggered = true;
+          startWiperAnimationSafely();
+        }
 
   // Step 10 → reset to 1946
   if (response.index === 10 && response.direction === "up") {
