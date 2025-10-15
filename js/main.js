@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const scroller = scrollama();
   let chartVisible = false;
    let wiperTriggered = false; 
+   window.wiperRunning = false; 
   const overlay = document.getElementById("dim-overlay");
 
   function animateYear(from, to, duration = 2) {
@@ -27,8 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // --- helper function to start wiper animation safely ---
   function startWiperAnimationSafely() {
     const yearEl = document.getElementById("year-counter");
+    // ✅ Only scroll into view on desktop, not mobile
+  if (window.innerWidth > 768) {
     const section = document.querySelectorAll(".scroll-section")[8];
     if (section) section.scrollIntoView({ behavior: "instant", block: "start" });
+  }
 
     document.body.style.overflow = "hidden";
     if (yearEl) gsap.to(yearEl, { opacity: 0, duration: 0.3 });
@@ -369,15 +373,15 @@ if (response.index === 15 && response.direction === "down") {
           if (typeof window.resetWiper === "function") window.resetWiper();
         }
 
-        if (
-          response.index === 8 &&
-          response.direction === "down" &&
-          !wiperTriggered &&
-          !window.wiperRunning
-        ) {
-          wiperTriggered = true;
-          startWiperAnimationSafely();
-        }
+        // if (
+        //   response.index === 8 &&
+        //   response.direction === "down" &&
+        //   !wiperTriggered &&
+        //   !window.wiperRunning
+        // ) {
+        //   wiperTriggered = true;
+        //   startWiperAnimationSafely();
+        // }
 
   // Step 10 → reset to 1946
   if (response.index === 10 && response.direction === "up") {
