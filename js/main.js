@@ -267,7 +267,7 @@ if (response.index === 14 && response.direction === "down") {
   if (overlay) {
     overlay.style.display = "";       // make sure it’s visible
     gsap.killTweensOf(overlay);       // cancel any previous animations
-    gsap.to(overlay, { opacity: 0.7, duration: 1 });  // adjust alpha as needed
+    gsap.to(overlay, { opacity: 0.6, duration: 1 });  // adjust alpha as needed
   }
 
 }
