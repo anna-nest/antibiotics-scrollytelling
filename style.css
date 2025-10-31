@@ -64,7 +64,7 @@ canvas {
 }
 
 .scroll-section {
-  min-height: 120dvh;
+  min-height: 140dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -151,8 +151,8 @@ canvas {
   width: 90%;
   max-width: 90vw;
   height: auto;   /* let SVG decide height */
-  margin-top: 0.1rem;
-  padding-top: 0.1rem;
+  margin-top: 0rem;
+  padding-top: 0rem;
   position: relative;
   overflow-x: visible; 
   z-index: 3; 
@@ -162,21 +162,21 @@ canvas {
 #disease-graph svg,
 #deathGraph2019 {
   width: 100%;
-  height: 65vh;
+  height: 60vh;
   display: block;
-    margin-top: 0; /* to reduce the gap between paragraph and chart  */
+    margin-top: 2rem; /* to reduce the gap between paragraph and chart  */
 }
 
 /* tighter spacing for sections that contain charts */
 #disease-graph p.disease-paragraph,
 #deathGraph2019 p.disease-paragraph {
-  margin: 0;  /* reduce gap under paragraph */
+  margin: 1rem;  /* reduce gap under paragraph */
 }
 
 
 #year-counter {
   position: fixed;        /* fixed to viewport so it’s independent of steps */
-  top: 10vh;              /* upper part of the screen */
+  top: 15vh;              /* upper part of the screen */
   left: 50%;
   transform: translateX(-50%);
   font-size: 4rem;
@@ -287,5 +287,18 @@ text.drug-label[data-top="true"] {
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
+#sources, #sources a {
+  pointer-events: auto;
+  z-index: 20;
+}
+
+.sources a {
+  color: white;
+  text-decoration: underline;
+}
+
+.sources a:hover {
+  color: rgb(30, 230, 120);
+}
 
 
