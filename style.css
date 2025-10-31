@@ -287,7 +287,9 @@ text.drug-label[data-top="true"] {
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
-#sources, #sources a {
+ */
+#sources,
+#sources a {
   pointer-events: auto;
   z-index: 20;
 }
@@ -301,4 +303,21 @@ text.drug-label[data-top="true"] {
   color: rgb(30, 230, 120);
 }
 
+/* Prevent overlays (like pinned graphics) from blocking touches */
+.scroll__graphic,
+.pinned-section,
+.overlay {
+  pointer-events: none;
+}
 
+/* Mobile/touch tweaks */
+@media (hover: none) and (pointer: coarse) {
+  .sources a {
+    cursor: pointer;         /* ensures tap recognition on mobile */
+    text-decoration: underline;  
+  }
+
+  .sources a:active {
+    color: rgb(30, 230, 120); /* gives feedback on tap */
+  }
+}
