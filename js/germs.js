@@ -29,6 +29,8 @@ let step12Spawning = false; // set true while step-12 staggered spawn is about t
 function setup() {
   let cnv = createCanvas(windowWidth, windowHeight);
   cnv.parent("swarm-container");
+  pixelDensity(window.devicePixelRatio); // performance fix
+
 
   N_GERMS = Math.floor(windowWidth * windowHeight / 5000); // ~ 384 240 on desktop, ~160 on phone
   if (N_GERMS < 100) N_GERMS = 200; // minimum for tiny screens
@@ -45,8 +47,11 @@ N_HARMFUL = Math.round(N_GERMS*0.021);
 }
 
 function draw() {
+  if (!window.bacteriaActive) return; // performance fix
+
   // if we are in the step-12 spawn phase and nothing has been pushed yet,
   // keep the canvas cleared (avoid showing the old swarm flash)
+  
   if (step12Spawning && germs.length === 0) {
     clear(); // ensure transparent canvas while waiting for first spawn
     return;
