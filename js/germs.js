@@ -47,7 +47,7 @@ N_HARMFUL = Math.round(N_GERMS*0.021);
 }
 
 function draw() {
-  if (!window.bacteriaActive) return; // performance fix
+  // if (!window.bacteriaActive) return; // performance fix
 
   // if we are in the step-12 spawn phase and nothing has been pushed yet,
   // keep the canvas cleared (avoid showing the old swarm flash)
