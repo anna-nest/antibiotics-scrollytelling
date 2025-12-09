@@ -392,12 +392,12 @@ if (response.index === 15 && response.direction === "up") {
   
   window.addEventListener("load", initScrollama);
   window.addEventListener("resize", () => scroller.resize());
-  
-// performance fix
-  window.addEventListener("load", () => {
-  setTimeout(() => {
-    scroller.setup();
-  }, 300);
-});
+
+// // performance fix
+//   window.addEventListener("load", () => {
+//   setTimeout(() => {
+//     scroller.setup();
+//   }, 300);
+// });
 
 });
