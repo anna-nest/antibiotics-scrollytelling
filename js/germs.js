@@ -42,11 +42,31 @@ function setup() {
 
   let cnv = createCanvas(windowWidth, windowHeight);
   cnv.parent("swarm-container");
-  pixelDensity(window.devicePixelRatio); // Your original
-
-  // ✅ Your original germ calculation - unchanged
-  N_GERMS = Math.floor(windowWidth * windowHeight / 5000);
-  if (N_GERMS < 100) N_GERMS = 200;
+  
+  // ✅ Detect PDF viewer or constrained environment
+  const isPDFContext = (
+    !window.opener && 
+    (!document.referrer || document.referrer === '') &&
+    window.performance.memory // exists in Chrome/Edge
+  );
+  
+  // Calculate base germ count
+  let baseGerms = Math.floor(windowWidth * windowHeight / 5000);
+  if (baseGerms < 100) baseGerms = 200;
+  
+  if (isPDFContext) {
+    // ✅ MODERATE reduction for PDF: use 60% of normal
+    N_GERMS = Math.floor(baseGerms * 0.6);
+    frameRate(20); // Slightly lower frame rate
+    pixelDensity(1); // No retina scaling
+    console.log('PDF context detected - using moderate performance mode');
+  } else {
+    // ✅ Normal web: full performance
+    N_GERMS = baseGerms;
+    frameRate(30);
+    pixelDensity(window.devicePixelRatio);
+  }
+  
   N_HARMFUL = Math.round(N_GERMS * 0.021);
 
   // initial swarm
@@ -56,8 +76,9 @@ function setup() {
   harmful = randomSubset(germs, N_HARMFUL);
 
   indicatorEl = document.querySelector(".scroll-indicator");
+  
+  console.log(`Setup complete: ${N_GERMS} germs (${isPDFContext ? 'PDF mode' : 'normal mode'})`);
 }
-
 
 function draw() {
   // if (!window.bacteriaActive) return; // performance fix
