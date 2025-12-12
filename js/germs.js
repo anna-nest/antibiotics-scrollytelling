@@ -29,16 +29,13 @@ let step12Spawning = false; // set true while step-12 staggered spawn is about t
 
 
 function setup() {
-// ✅ CRITICAL: Multiple layers of protection against duplicate setup
-  
-  // Check 1: Has setup already run?
+  // ✅ Multiple layers of protection against duplicate setup
   if (window.germCanvasCreated) {
     console.log("Setup already ran, aborting duplicate");
-    noLoop(); // Stop this instance from drawing
+    noLoop();
     return;
   }
   
-  // Check 2: Does canvas already exist in DOM?
   const existingCanvas = document.querySelector('#swarm-container canvas');
   if (existingCanvas) {
     console.log("Canvas already exists in DOM, aborting");
@@ -46,59 +43,68 @@ function setup() {
     return;
   }
   
-  // Check 3: Are germs already populated?
   if (germs.length > 0) {
     console.log("Germs array already populated, clearing and continuing");
     germs = [];
     harmful = [];
   }
   
-  // ✅ Mark that we're setting up NOW (before any async operations)
   window.germCanvasCreated = true;
-  
   console.log("Starting fresh setup...");
 
   let cnv = createCanvas(windowWidth, windowHeight);
   cnv.parent("swarm-container");
   
-  // ✅ Detect PDF viewer or constrained environment
   const isPDFContext = (
     !window.opener && 
     (!document.referrer || document.referrer === '') &&
-    window.performance.memory // exists in Chrome/Edge
+    window.performance.memory
   );
   
-  // Calculate base germ count
-  let baseGerms = Math.floor(windowWidth * windowHeight / 7000);
-  if (baseGerms < 100) baseGerms = 200;
-
-    // ✅ CRITICAL: Cap at reasonable maximum
-  const MAX_GERMS = 350; // Adjust this number based on testing
+  // ✅ Responsive divisor based on screen size
+  let divisor;
+  if (windowWidth > 3000) {
+    divisor = 12000; // 4K monitors
+  } else if (windowWidth > 2200) {
+    divisor = 10000; // Large monitors (2560px etc)
+  } else if (windowWidth > 1600) {
+    divisor = 8000;  // Standard large desktop
+  } else if (windowWidth > 1200) {
+    divisor = 7000;  // Laptop
+  } else if (windowWidth > 768) {
+    divisor = 5000;  // Tablet
+  } else {
+    divisor = 4000;  // Mobile
+  }
+  
+  let baseGerms = Math.floor(windowWidth * windowHeight / divisor);
+  
+  // ✅ Lower max for better performance on large screens
+  const MAX_GERMS = 350;
   if (baseGerms > MAX_GERMS) {
     console.log(`Capping germs: calculated ${baseGerms}, using ${MAX_GERMS}`);
     baseGerms = MAX_GERMS;
   }
   
+  if (baseGerms < 50) baseGerms = 50;
+  
   if (isPDFContext) {
-    // ✅ MODERATE reduction for PDF: use 60% of normal
     N_GERMS = Math.floor(baseGerms * 0.6);
-    frameRate(20); // Slightly lower frame rate
-    pixelDensity(1); // No retina scaling
+    frameRate(20);
+    pixelDensity(1);
     console.log('PDF context detected - using moderate performance mode');
   } else {
-    // ✅ Normal web: full performance
     N_GERMS = baseGerms;
     frameRate(30);
-    pixelDensity(window.devicePixelRatio);
+    // ✅ Cap pixel density on very large screens
+    pixelDensity(Math.min(2, window.devicePixelRatio));
   }
   
   N_HARMFUL = Math.round(N_GERMS * 0.021);
 
-    // ✅ Ensure arrays are clear before populating
   germs = [];
   harmful = [];
 
-  // initial swarm
   for (let i = 0; i < N_GERMS; i++) {
     germs.push(new Germ(random(width), random(height)));
   }
@@ -106,7 +112,7 @@ function setup() {
 
   indicatorEl = document.querySelector(".scroll-indicator");
   
-  console.log(`Setup complete: ${N_GERMS} germs (${isPDFContext ? 'PDF mode' : 'normal mode'})`);
+  console.log(`✅ Setup: ${N_GERMS} germs on ${windowWidth}×${windowHeight}`);
 }
 
 function draw() {
