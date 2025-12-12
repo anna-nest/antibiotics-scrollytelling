@@ -1,5 +1,11 @@
 // germs.js — corrected version with fixes
 
+// Prevent multiple p5 instances
+if (window.p5Instance) {
+  console.warn("P5 already running, skipping duplicate initialization");
+  return;
+}
+
 let germs = [];
 let step = 0;
 let harmful = [];
@@ -27,6 +33,10 @@ let step12Spawning = false; // set true while step-12 staggered spawn is about t
 
 
 function setup() {
+    // ✅ CRITICAL: Clear existing germs to prevent multiplication
+  germs = [];
+  harmful = [];
+  
   let cnv = createCanvas(windowWidth, windowHeight);
   cnv.parent("swarm-container");
   pixelDensity(window.devicePixelRatio); // performance fix
