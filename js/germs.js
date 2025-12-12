@@ -57,7 +57,7 @@ function setup() {
   window.germCanvasCreated = true;
   
   console.log("Starting fresh setup...");
-  
+
   let cnv = createCanvas(windowWidth, windowHeight);
   cnv.parent("swarm-container");
   
@@ -71,6 +71,13 @@ function setup() {
   // Calculate base germ count
   let baseGerms = Math.floor(windowWidth * windowHeight / 7000);
   if (baseGerms < 100) baseGerms = 200;
+
+    // ✅ CRITICAL: Cap at reasonable maximum
+  const MAX_GERMS = 400; // Adjust this number based on testing
+  if (baseGerms > MAX_GERMS) {
+    console.log(`Capping germs: calculated ${baseGerms}, using ${MAX_GERMS}`);
+    baseGerms = MAX_GERMS;
+  }
   
   if (isPDFContext) {
     // ✅ MODERATE reduction for PDF: use 60% of normal
