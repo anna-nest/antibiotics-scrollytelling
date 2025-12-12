@@ -73,7 +73,7 @@ function setup() {
   if (baseGerms < 100) baseGerms = 200;
 
     // ✅ CRITICAL: Cap at reasonable maximum
-  const MAX_GERMS = 400; // Adjust this number based on testing
+  const MAX_GERMS = 350; // Adjust this number based on testing
   if (baseGerms > MAX_GERMS) {
     console.log(`Capping germs: calculated ${baseGerms}, using ${MAX_GERMS}`);
     baseGerms = MAX_GERMS;
