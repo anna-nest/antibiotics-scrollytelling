@@ -29,9 +29,7 @@ let step12Spawning = false; // set true while step-12 staggered spawn is about t
 
 
 function setup() {
-    // ✅ CRITICAL: Clear existing germs to prevent multiplication
-  germs = [];
-  harmful = [];
+
   
   let cnv = createCanvas(windowWidth, windowHeight);
   cnv.parent("swarm-container");
