@@ -29,17 +29,41 @@ let step12Spawning = false; // set true while step-12 staggered spawn is about t
 
 
 function setup() {
-
+  // ✅ Clear arrays first
+  germs = [];
+  harmful = [];
   
+  // ✅ Detect if opened from PDF viewer (very limited JS environment)
+  const isPDFContext = (
+    !window.opener && // no parent window
+    document.referrer.includes('pdf') || // referrer mentions pdf
+    navigator.userAgent.includes('PDF') || // PDF in user agent
+    window.location.href.includes('://') && !document.referrer // direct link, no referrer
+  );
+
+  // ✅ Prevent multiple canvas creation
+  if (window.germCanvasCreated) {
+    console.log("Canvas already exists, skipping setup");
+    return;
+  }
+  window.germCanvasCreated = true;
+
   let cnv = createCanvas(windowWidth, windowHeight);
   cnv.parent("swarm-container");
-  pixelDensity(window.devicePixelRatio); // performance fix
-
-
-  N_GERMS = Math.floor(windowWidth * windowHeight / 5000); // ~ 384 240 on desktop, ~160 on phone
-  if (N_GERMS < 100) N_GERMS = 200; // minimum for tiny screens
-N_HARMFUL = Math.round(N_GERMS*0.021);
-
+  
+  // ✅ CRITICAL: Reduce performance demands in constrained environments
+  if (isPDFContext) {
+    frameRate(15); // Very low frame rate for PDF viewers
+    pixelDensity(1); // No retina scaling
+    N_GERMS = 50; // Drastically reduce germs (from ~240 to 50)
+  } else {
+    frameRate(30); // Normal low frame rate
+    pixelDensity(Math.min(2, displayDensity())); // Cap at 2x
+    N_GERMS = Math.floor(windowWidth * windowHeight / 5000);
+  }
+  
+  if (N_GERMS < 50) N_GERMS = 50;
+  N_HARMFUL = Math.round(N_GERMS * 0.021);
 
   // initial swarm
   for (let i = 0; i < N_GERMS; i++) {
@@ -48,7 +72,10 @@ N_HARMFUL = Math.round(N_GERMS*0.021);
   harmful = randomSubset(germs, N_HARMFUL);
 
   indicatorEl = document.querySelector(".scroll-indicator");
+  
+  console.log(`Setup complete: ${N_GERMS} germs, ${isPDFContext ? 'PDF' : 'normal'} context`);
 }
+
 
 function draw() {
   // if (!window.bacteriaActive) return; // performance fix
