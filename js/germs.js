@@ -192,11 +192,19 @@ window.updateGermsStep = updateGermsStep;
 class Germ {
   constructor(x, y, label = null) {
     this.pos = createVector(x, y);
-    this.vel = p5.Vector.random2D().mult(random(0.5, 1.2)); // bounce movement
-    this.offset = random(1000); // noisy edge
+    this.vel = p5.Vector.random2D().mult(random(0.5, 1.2));
+    this.offset = random(1000);
 
-    this.size = random(windowWidth * 0.03, windowWidth * 0.035);
-// about 20 px on small screens, 40 px on large
+    // ✅ CRITICAL: Cap germ size for large screens
+    const baseSize = windowWidth * 0.03;
+    const maxSize = 60; // Never larger than 60px
+    const minSize = 20; // Never smaller than 20px
+    
+    this.size = random(
+      constrain(baseSize * 0.85, minSize, maxSize),
+      constrain(baseSize, minSize, maxSize)
+    );
+
     this.baseColor = color(132, 127, 129, 180);
     this.baseSize = this.size;
     this.targetSize = this.size;
