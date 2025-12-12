@@ -51,7 +51,7 @@ function setup() {
   );
   
   // Calculate base germ count
-  let baseGerms = Math.floor(windowWidth * windowHeight / 5000);
+  let baseGerms = Math.floor(windowWidth * windowHeight / 7000);
   if (baseGerms < 100) baseGerms = 200;
   
   if (isPDFContext) {
@@ -82,6 +82,11 @@ function setup() {
 
 function draw() {
   // if (!window.bacteriaActive) return; // performance fix
+  // ✅ Safety check: if germs exceed expected count, something went wrong
+  if (germs.length > N_GERMS * 1.5) {
+    console.error(`Too many germs! Expected ~${N_GERMS}, got ${germs.length}. Clearing...`);
+    germs = germs.slice(0, N_GERMS); // Keep only first N_GERMS
+  }
 
   // if we are in the step-12 spawn phase and nothing has been pushed yet,
   // keep the canvas cleared (avoid showing the old swarm flash)
