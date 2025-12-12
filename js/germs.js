@@ -80,7 +80,7 @@ function setup() {
   let baseGerms = Math.floor(windowWidth * windowHeight / divisor);
   
   // ✅ Lower max for better performance on large screens
-  const MAX_GERMS = 350;
+  const MAX_GERMS = 300;
   if (baseGerms > MAX_GERMS) {
     console.log(`Capping germs: calculated ${baseGerms}, using ${MAX_GERMS}`);
     baseGerms = MAX_GERMS;
