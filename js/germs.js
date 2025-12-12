@@ -29,17 +29,35 @@ let step12Spawning = false; // set true while step-12 staggered spawn is about t
 
 
 function setup() {
-  // ✅ Clear arrays to prevent multiplication
-  germs = [];
-  harmful = [];
+// ✅ CRITICAL: Multiple layers of protection against duplicate setup
   
-  // ✅ Prevent duplicate canvas creation
+  // Check 1: Has setup already run?
   if (window.germCanvasCreated) {
-    console.log("Canvas already exists, skipping");
+    console.log("Setup already ran, aborting duplicate");
+    noLoop(); // Stop this instance from drawing
     return;
   }
+  
+  // Check 2: Does canvas already exist in DOM?
+  const existingCanvas = document.querySelector('#swarm-container canvas');
+  if (existingCanvas) {
+    console.log("Canvas already exists in DOM, aborting");
+    noLoop();
+    return;
+  }
+  
+  // Check 3: Are germs already populated?
+  if (germs.length > 0) {
+    console.log("Germs array already populated, clearing and continuing");
+    germs = [];
+    harmful = [];
+  }
+  
+  // ✅ Mark that we're setting up NOW (before any async operations)
   window.germCanvasCreated = true;
-
+  
+  console.log("Starting fresh setup...");
+  
   let cnv = createCanvas(windowWidth, windowHeight);
   cnv.parent("swarm-container");
   
@@ -68,6 +86,10 @@ function setup() {
   }
   
   N_HARMFUL = Math.round(N_GERMS * 0.021);
+
+    // ✅ Ensure arrays are clear before populating
+  germs = [];
+  harmful = [];
 
   // initial swarm
   for (let i = 0; i < N_GERMS; i++) {
